@@ -1,0 +1,4 @@
+org/pg/spring/TrainspringApplication.java
+ org.pg.spring.TrainspringApplication
+org/pg/spring/bean/BeanTest.java
+ org.pg.spring.bean.BeanTest

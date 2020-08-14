@@ -1,0 +1,11 @@
+rootProject.name = 'train'
+
+include 'design_pattern'
+include 'spring-demo'
+include 'hadoop-demo'
+include 'spark-demo'
+include 'netty-demo'
+include 'scala-demo'
+include 'javase'
+include 'algorithm'
+
