@@ -8,4 +8,5 @@ include 'netty-demo'
 include 'scala-demo'
 include 'javase'
 include 'algorithm'
-
+include 'stream-db-analyse'
+include 'stream-analyse'
