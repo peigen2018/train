@@ -16,7 +16,9 @@ public class Test1 {
     //6. java -XX:+PrintFlagsFinal 最终参数值
     //7. java -XX:+PrintFlagsFinal | grep xxx 找到对应的参数
     //8. java -XX:+PrintFlagsFinal -version |grep GC
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
+
+        Class.forName("");
         System.out.println("HelloGC!");
         List list = new LinkedList();
         for (; ; ) {
