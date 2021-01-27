@@ -9,35 +9,48 @@ import java.net.URLEncoder;
 public class HTTPTools {
     public static void main(String[] args) {
         try {
-            // 提交的数据
+
             String data = URLEncoder.encode("name", "UTF-8") + "="
-                    + URLEncoder.encode("老紫竹", "UTF-8");
-            data += "&" + URLEncoder.encode("message", "UTF-8") + "="
-                    + URLEncoder.encode("欢迎光临JAVA世纪网", "UTF-8");
-            // 建立连接
-            String hostname = "test.meitanjianghu.com";
-            int port = 80;
+                    + URLEncoder.encode("hello", "UTF-8");
+        
+
+            String hostname = "10.92.2.252";
+            int port = 5667;
             InetAddress addr = InetAddress.getByName(hostname);
             Socket socket = new Socket(addr, port);
-            // 发送数据头
+
             String path = "/";
-            BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(),
-                    "UTF8"));
-            wr.write("GET " + path + " HTTP/1.0\r\n");
-            wr.write("Host: ");
-            wr.write("Content-Length: " + data.length() + "\r\n");
-            wr.write("Content-Type: application/x-www-form-urlencoded\r\n");
-            wr.write("\r\n"); // 以空行作为分割
-            // 发送数据
-            wr.write(data);
-            wr.flush();
-            // 读取返回信息
+     
+            
+            DataOutputStream wr = new DataOutputStream(socket.getOutputStream());
+            
+            wr.write(("GET " + path + " HTTP/1.1\r\n").getBytes());
+            
+    
+            wr.write(("Host: ac.test.token.com \r\n").getBytes());
+   
+            Thread.sleep(15000);
+            
+            
+            wr.write(("Content-Length: " + data.length() + "\r\n").getBytes());
+            wr.write(("Content-Type: application/text/html\r\n").getBytes());
+        
+            
+            wr.write(("User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36\r\n").getBytes());
+    
+
+            wr.write("\r\n".getBytes()); 
+ 
+           
+      
+         
             BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream(),
                     "UTF-8"));
             String line;
             while ((line = rd.readLine()) != null) {
                 System.out.println(line);
             }
+            wr.flush();
             wr.close();
             rd.close();
         } catch (Exception e) {
