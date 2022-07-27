@@ -17,6 +17,8 @@ SCA第三方组件成分分析(Software Composition Analysis)技术，主要就�
 
 
 ## AST
+
+![ast](./img/ast.png)
 ### SAST(Static Application Security Testing)
 静态应用程序安全测试，对应用代码直接进行白盒分析，缺点误报率高，
 扫描源代码。
@@ -89,7 +91,7 @@ IAST能同时访问代码及API流量
 
 - 使用统计或机器学习技术自动地识别和标记污点源及汇聚点3
 
-
+![污点分析](./img/%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90.png)
 ###### 污点传播分析
 
 1. 显示流分析
