@@ -91,7 +91,7 @@ IAST能同时访问代码及API流量
 
 - 使用统计或机器学习技术自动地识别和标记污点源及汇聚点3
 
-![污点分析](./img/%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90.png)
+![污点分析](./img/blot_analysis.png)
 ###### 污点传播分析
 
 1. 显示流分析
@@ -139,3 +139,43 @@ IAST在组件分析方面具备一定的优势，因为 java本身会进行运�
 1. 语言对插桩得支持
 2. 依赖测试覆盖度
 3. 插桩对于对系统不熟悉得人或者稍大型的项目有一点难度
+
+
+
+### JAVAagent
+
+使用的工具包
+
+![污点分析](./img/agent_class.jpg)
+
+#### 两种运行方式
+1. -javaagent:
+
+
+```
+public static void premain(String args, Instrumentation inst) {} 
+public static void agentmain(String args, Instrumentation inst) {}
+```
+
+2. attach方式
+
+
+```
+public static void premain(String agentArgs, Instrumentation inst)    
+public static void premain(String agentArgs)
+```
+
+
+
+
+Java Agent还限制了我们必须以jar包的形式运行或加载，我们必须将编写好的Agent程序打包成一个jar文件。除此之外，Java Agent还强制要求了所有的jar文件中必须包含/META-INF/MANIFEST.MF文件，且该文件中必须定义好Premain-Class（Agent模式）或Agent-Class:（Agent模式）配置，如：
+```
+Premain-Class: com.anbai.sec.agent.CrackLicenseAgent 
+Agent-Class: com.anbai.sec.agent.CrackLicenseAgent
+```
+如果我们需要修改已经被JVM加载过的类的字节码，那么还需要设置在MANIFEST.MF中添加
+
+```
+Can-Retransform-Classes: true
+Can-Redefine-Classes: true。
+```
