@@ -3,9 +3,14 @@
 
 ## 自动化安全测试工具链
 
+RSAC2018正式提出了黄金管道的概念
+
+
+
+
 ### AST（Application Security Testing）
 应用安全测试
-AST（Application Security Testing）包括传统SAST白盒静态应用安全测试、黑盒DAST动态应用安全测试以及新一代IAST交互式应用安全测试技术
+AST（Application Security Testing）包括传统SAST白盒静态应用安全测试、黑盒DAST动态应用安全测试以及新一代，IAST交互式应用安全测试技术
 
 
 ### SAC
@@ -142,11 +147,20 @@ IAST在组件分析方面具备一定的优势，因为 java本身会进行运�
 
 
 
-### JAVAagent
+### JAVA Agent
 
 使用的工具包
 
 ![污点分析](./img/agent_class.jpg)
+
+
+使用JAVA Agent流程
+
+1. 编写一个Agent类，其中定义premain方法并调用Instrumentation#addTransformer方法添加一个自定义的Transformer
+2. 自定义一个Transformer类，实现Instrumentation接口，在transform方法中写入自己想要的AOP逻辑
+3. 创建MANIFEST.MF文件，可以手动写也可以通过Maven的插件（pom.xml）
+4. 打包Agent的jar包
+5. 在需要使用JavaAgent的项目添加JVM启动参数-javaagent并指定我们打包好的jar
 
 #### 两种运行方式
 1. -javaagent:
@@ -179,3 +193,14 @@ Agent-Class: com.anbai.sec.agent.CrackLicenseAgent
 Can-Retransform-Classes: true
 Can-Redefine-Classes: true。
 ```
+
+
+
+参数说明
+
+1. Premain-Class ：包含 premain 方法的类（类的全路径名）
+2. Agent-Class ：包含 agentmain 方法的类（类的全路径名）
+3. Boot-Class-Path ：设置引导类加载器搜索的路径列表。查找类的特定于平台的机制失败后，引导类加载器会搜索这些路径。按列出的顺序搜索路径。列表中的路径由一个或多个空格分开。路径使用分层 URI 的路径组件语法。如果该路径以斜杠字符（“/”）开头，则为绝对路径，否则为相对路径。相对路径根据代理 JAR 文件的绝对路径解析。忽略格式不正确的路径和不存在的路径。如果代理是在 VM 启动之后某一时刻启动的，则忽略不表示 JAR 文件的路径。（可选）
+4. Can-Redefine-Classes ：true表示能重定义此代理所需的类，默认值为 false（可选）
+5. Can-Retransform-Classes ：true 表示能重转换此代理所需的类，默认值为 false （可选）
+6. Can-Set-Native-Method-Prefix： true表示能设置此代理所需的本机方法前缀，默认值为 false（可选）
